@@ -4,7 +4,6 @@ import { prisma } from "../utils/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { BlogPostCard } from "../components/general/Blogpost";
 
-
 async function getData(userId: string) {
   await new Promise((resolve) => setTimeout(resolve, 2000));
   const data = await prisma.blogPost.findMany({
@@ -23,7 +22,11 @@ export default async function DashboardRoute() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
-  const data = await getData(user?.id);
+  if (!user) {
+    return <div>Please login</div>;
+  }
+
+  const data = await getData(user.id);
 
   return (
     <div>
@@ -40,7 +43,6 @@ export default async function DashboardRoute() {
           <BlogPostCard data={item} key={item.id} />
         ))}
       </div>
-      
     </div>
   );
 }
