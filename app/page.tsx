@@ -7,6 +7,8 @@ import { BlogPostCard } from "./components/general/Blogpost";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
+
+export const revalidate = 60;
 async function getData() {
   await new Promise((resolve) => setTimeout(resolve, 2000)); // timer
   const data = await prisma.blogPost.findMany({
