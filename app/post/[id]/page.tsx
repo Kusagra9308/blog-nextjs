@@ -35,7 +35,7 @@ export default async function IdPage({ params }: { params: Params }) {
 
       <div className="mb-8 mt-6">
         <h1 className="text-3xl font-bold tracking-tight mb-4">{data.title}</h1>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center justify-between flex-wrap gap-4">
           <div className="flex items-center space-x-2">
             <div className="relative size-10 overflow-hidden rounded-full">
               <Image
@@ -69,7 +69,15 @@ export default async function IdPage({ params }: { params: Params }) {
 
       <Card>
         <CardContent>
-          <p className="text-gray-700">{data.content}</p>
+          <Card className="shadow-sm">
+            <CardContent className="p-8">
+              <article className="text-gray-700 leading-relaxed space-y-6 text-lg">
+                {data.content.split("\n").map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
+              </article>
+            </CardContent>
+          </Card>
         </CardContent>
       </Card>
     </div>
